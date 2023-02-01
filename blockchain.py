@@ -46,13 +46,25 @@ class Blockchain:
         # calls and returns the last block of the chain
         return self.chain[-1]
     
+    def proof_of_work(self, last_proof):
+        # method for consensus algorithm
+        proof = 0
+        while self.valid_proof(last_proof, proof) is False:
+            proof += 1
+        return proof
+        
+    @staticmethod
+    def valid_proof(last_proof, proof):
+        # ensure that submitted block to chain solves the problem
+        guess = f'{last_proof}{proof}'.encode()
+        guess_hash = hashlib.sha256(guess).hexdigest()
+        return guess_hash[:4] == "0000"
+        
+    
     def register_node(self):
         # register a new node and add it to the network
         pass
     
-    def valid_proof(self):
-        # ensure that submitted block to chain solves the problem
-        pass
 
     def valid_chain(self):
         # make sure subsequent blocks in chain are valid
