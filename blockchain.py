@@ -1,5 +1,7 @@
 #import module requirements
 import time
+import json
+import hashlib
 
 class Blockchain:
     def __init__(self):
@@ -35,7 +37,9 @@ class Blockchain:
     @staticmethod
     def hash(block):
         # used to hash a block
-        pass
+        block_string = json.dumps(block, sort_keys=True).encode()
+        # returns a SHA-256 block hash
+        return hashlib.sha256(block_string).hexdigest()
     
     @property
     def last_block(self):
