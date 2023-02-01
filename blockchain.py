@@ -40,7 +40,7 @@ class Blockchain:
     @property
     def last_block(self):
         # calls and returns the last block of the chain
-        pass
+        return self.chain[-1]
     
     def register_node(self):
         # register a new node and add it to the network
