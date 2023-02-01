@@ -1,12 +1,24 @@
+#import module requirements
+import time
+
 class Blockchain:
     def __init__(self):
         self.chain = []                     #stores blockchain
         self.current_transactions = []      #stores transactions
         self.new_block(previous_hash=1, proof=100) #create genesis block
         
-    def new_block(self):
+    def new_block(self, proof, previous_hash=None):
         # create new blocks and then add them to the existing chain
-        pass
+        block = {
+            'index': len(self.chain) + 1,
+            'timestamp': time.time(),
+            'proof': proof,
+            'previous_hash': previous_hash or self.hash(self.chain[-1])
+        }
+        #clear transactions and add block to the chain
+        self.current_transactions = []
+        self.chain.append(block)
+        return block
     
     def new_transaction(self, sender, recipient, amount):
         # creates new transactions with sender, recipient, amount 
